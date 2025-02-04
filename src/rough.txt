@@ -1,0 +1,309 @@
+import React, { useEffect, useState } from "react";
+import { Container, Form, Button } from "react-bootstrap";
+import axios from "axios";
+
+function Register() {
+  useEffect(() => {
+    // Initial setup if needed
+  }, []);
+
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [area, setArea] = useState([]);
+  const [pincode, setPincode] = useState("");
+  const [wifiNames, setWifiNames] = useState([""]);
+  const [phoneNumbers, setPhoneNumbers] = useState([""]);
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = () => {
+    console.log("Form submitted!");
+  };
+
+  const handlePincodeChange = (e) => {
+    const value = e.target.value;
+    setPincode(value);
+
+    if (value.length === 6) {
+      fetchCountryStateCity(value); // Fetch details based on pincode
+    }
+  };
+
+  const fetchCountryStateCity = (pincode) => {
+    const apiUrl = `https://api.postalpincode.in/pincode/${pincode}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const data = response.data;
+        if (data[0].Status === "Success") {
+          const countryName = data[0].PostOffice[0].Country;
+          const stateName = data[0].PostOffice[0].State;
+          const cityName = data[0].PostOffice[0].District;
+          const areaList = data[0].PostOffice.map((post) => post.Name);
+
+          setCountry(countryName); // Set country
+          setState(stateName); // Set state
+          setCity(cityName); // Set city
+          setArea(areaList); // Set areas based on pincode
+        } else {
+          setCountry("");
+          setState("");
+          setCity("");
+          setArea([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching country, state, city, and area:", error);
+        setCountry("");
+        setState("");
+        setCity("");
+        setArea([]);
+      });
+  };
+
+  const handleAddWifi = () => {
+    setWifiNames([...wifiNames, ""]);
+  };
+
+  const handleWifiChange = (e, index) => {
+    const updatedWifiNames = [...wifiNames];
+    updatedWifiNames[index] = e.target.value;
+    setWifiNames(updatedWifiNames);
+  };
+
+  const handleDeleteWifi = (index) => {
+    const updatedWifiNames = wifiNames.filter((_, i) => i !== index);
+    setWifiNames(updatedWifiNames);
+  };
+
+  const handleAddPhoneNumber = () => {
+    setPhoneNumbers([...phoneNumbers, ""]);
+  };
+
+  const handlePhoneNumberChange = (e, index) => {
+    const updatedPhoneNumbers = [...phoneNumbers];
+    updatedPhoneNumbers[index] = e.target.value;
+    setPhoneNumbers(updatedPhoneNumbers);
+  };
+
+  const handleDeletePhoneNumber = (index) => {
+    const updatedPhoneNumbers = phoneNumbers.filter((_, i) => i !== index);
+    setPhoneNumbers(updatedPhoneNumbers);
+  };
+
+  return (
+    <Container
+      className="my-4 register-container"
+      style={{ maxWidth: "800px", padding: "20px" }}
+    >
+      <h3 style={{ textAlign: "center", marginBottom: "30px", color: "#333" }}>
+        Register Yourself
+      </h3>
+
+      <div className="section" style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>Name</h4>
+        <Form.Control
+          type="text"
+          id="firstName"
+          required
+          style={{ padding: "10px", fontSize: "16px", marginBottom: "15px" }}
+        />
+      </div>
+
+      <div className="section" style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>Email</h4>
+        <Form.Control
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={{ padding: "10px", fontSize: "16px", marginBottom: "15px" }}
+        />
+      </div>
+
+      <div className="section" style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>Contact</h4>
+        {phoneNumbers.map((phone, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "15px",
+            }}
+          >
+            <Form.Control
+              type="text"
+              value={phone}
+              onChange={(e) => handlePhoneNumberChange(e, index)}
+              placeholder="Enter phone number"
+              maxLength={10}
+              required
+              style={{
+                padding: "10px",
+                fontSize: "16px",
+                marginRight: "10px",
+                flex: 1,
+              }}
+            />
+            {index > 0 && (
+              <Button
+                variant="danger"
+                onClick={() => handleDeletePhoneNumber(index)}
+                style={{ fontSize: "14px", padding: "8px 16px" }}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
+        ))}
+        <Button
+          variant="link"
+          onClick={handleAddPhoneNumber}
+          style={{ color: "#007bff", fontSize: "16px" }}
+        >
+          Add More Phone Numbers
+        </Button>
+      </div>
+
+      <div className="section" style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>Address</h4>
+        <Form.Control
+          type="text"
+          value={pincode}
+          onChange={handlePincodeChange}
+          maxLength={6}
+          placeholder="Enter pincode"
+          required
+          style={{ padding: "10px", fontSize: "16px", marginBottom: "15px" }}
+        />
+        <div style={{ display: "flex", marginBottom: "15px" }}>
+          <Form.Control
+            type="text"
+            value={country}
+            readOnly
+            required
+            style={{
+              padding: "10px",
+              fontSize: "16px",
+              flex: 1,
+              marginRight: "10px",
+            }}
+          />
+          <Form.Control
+            type="text"
+            value={state}
+            readOnly
+            required
+            style={{ padding: "10px", fontSize: "16px", flex: 1 }}
+          />
+        </div>
+        <div style={{ display: "flex", marginBottom: "15px" }}>
+          <Form.Control
+            type="text"
+            value={city}
+            readOnly
+            required
+            style={{
+              padding: "10px",
+              fontSize: "16px",
+              flex: 1,
+              marginRight: "10px",
+            }}
+          />
+          <Form.Control
+            as="select"
+            style={{ padding: "10px", fontSize: "16px", flex: 1 }}
+          >
+            <option>Select Area</option>
+            {area.map((area, index) => (
+              <option key={index}>{area}</option>
+            ))}
+          </Form.Control>
+        </div>
+        <Form.Control
+          type="text"
+          placeholder="Flat or Street Address"
+          required
+          style={{ padding: "10px", fontSize: "16px", marginBottom: "15px" }}
+        />
+      </div>
+
+      <div className="section" style={{ marginBottom: "20px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>
+          Broadband Name
+        </h4>
+        <Form.Control
+          type="text"
+          placeholder="Eg: Airtel, Jio etc."
+          required
+          style={{ padding: "10px", fontSize: "16px", marginBottom: "15px" }}
+        />
+      </div>
+
+      <div className="section" style={{ marginBottom: "30px" }}>
+        <h4 style={{ color: "#007bff", marginBottom: "10px" }}>WiFi Name</h4>
+        {wifiNames.map((wifi, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "15px",
+            }}
+          >
+            <Form.Control
+              type="text"
+              value={wifi}
+              placeholder="Eg: abc-2.4G, abc-5G"
+              onChange={(e) => handleWifiChange(e, index)}
+              required
+              style={{
+                padding: "10px",
+                fontSize: "16px",
+                marginRight: "10px",
+                flex: 1,
+              }}
+            />
+            {index > 0 && (
+              <Button
+                variant="danger"
+                onClick={() => handleDeleteWifi(index)}
+                style={{ fontSize: "14px", padding: "8px 16px" }}
+              >
+                Delete
+              </Button>
+            )}
+          </div>
+        ))}
+        <Button
+          variant="link"
+          onClick={handleAddWifi}
+          style={{ color: "#007bff", fontSize: "16px" }}
+        >
+          Add More WiFi
+        </Button>
+      </div>
+
+      <div
+        className="actions"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "30px",
+        }}
+      >
+        <Button
+          onClick={handleSubmit}
+          variant="success"
+          style={{ padding: "10px 20px", fontSize: "16px" }}
+        >
+          Save and Submit
+        </Button>
+      </div>
+    </Container>
+  );
+}
+
+export default Register;
