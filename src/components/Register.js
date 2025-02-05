@@ -468,7 +468,7 @@ function Register() {
             padding: "12px 20px",
             fontSize: "16px",
             borderRadius: "8px",
-            width: "20%",
+            width: "40%",
             backgroundColor: "#86b5ed", // lightish purple
             borderColor: "#d1aadf", // matching border color
             color: "#fff", // white text
