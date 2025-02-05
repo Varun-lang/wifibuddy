@@ -120,7 +120,7 @@ function Display() {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Email</th>
+            {/* <th>Email</th> */}
             <th>Phone Numbers</th>
             <th>Street Address</th>
             <th>Area</th>
@@ -137,7 +137,7 @@ function Display() {
               <tr key={entry.id}>
                 <td>{index + 1}</td>
                 <td>{entry.name || "N/A"}</td>
-                <td>{entry.email || "N/A"}</td>
+                {/* <td>{entry.email || "N/A"}</td> */}
                 <td className="wrap-text">
                   {entry.phoneNumbers ? entry.phoneNumbers.join(", ") : "N/A"}
                 </td>

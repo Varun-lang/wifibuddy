@@ -203,7 +203,7 @@ function Register() {
         />
       </div>
 
-      <div className="section" style={{ marginBottom: "30px" }}>
+      {/* <div className="section" style={{ marginBottom: "30px" }}>
         <h4 style={{ color: "#343a40", marginBottom: "10px" }}>Email</h4>
         <Form.Control
           type="email"
@@ -219,7 +219,7 @@ function Register() {
             borderColor: "#007bff",
           }}
         />
-      </div>
+      </div> */}
 
       <div className="section" style={{ marginBottom: "30px" }}>
         <h4 style={{ color: "#343a40", marginBottom: "10px" }}>Contact</h4>
@@ -230,6 +230,7 @@ function Register() {
               display: "flex",
               alignItems: "center",
               marginBottom: "20px",
+              width: "30%",
             }}
           >
             <Form.Control
@@ -466,9 +467,10 @@ function Register() {
             padding: "12px 20px",
             fontSize: "16px",
             borderRadius: "8px",
-            width: "100%",
-            backgroundColor: "#28a745",
-            borderColor: "#28a745",
+            width: "30%",
+            backgroundColor: "#86b5ed", // lightish purple
+            borderColor: "#d1aadf", // matching border color
+            color: "#fff", // white text
           }}
         >
           Save and Submit
