@@ -405,6 +405,7 @@ function Register() {
               display: "flex",
               alignItems: "center",
               marginBottom: "20px",
+              width: "30%",
             }}
           >
             <Form.Control
@@ -467,7 +468,7 @@ function Register() {
             padding: "12px 20px",
             fontSize: "16px",
             borderRadius: "8px",
-            width: "30%",
+            width: "20%",
             backgroundColor: "#86b5ed", // lightish purple
             borderColor: "#d1aadf", // matching border color
             color: "#fff", // white text
