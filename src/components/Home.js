@@ -220,7 +220,7 @@ function Home() {
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 1000px;
-            margin-top: 40px;
+            margin-top: 20px;
           }
 
           .customer-reviews h3 {
