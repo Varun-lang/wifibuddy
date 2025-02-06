@@ -64,7 +64,9 @@ function Register() {
     const dataRef = ref(db, "registrations");
     push(dataRef, formData)
       .then(() => {
-        toast.success("You are registered!");
+        toast.success("You are registered!", {
+          duration: 5000,
+        });
         resetForm(); // Optionally reset the form here after successful submission
       })
       .catch((error) => {
@@ -474,9 +476,9 @@ function Register() {
             fontSize: "16px",
             borderRadius: "8px",
             width: "40%",
-            backgroundColor: "#86b5ed", // lightish purple
-            borderColor: "#d1aadf", // matching border color
-            color: "#fff", // white text
+            backgroundColor: "#6263b6",
+            borderColor: "#d1aadf",
+            color: "#fff",
           }}
         >
           Save and Submit
