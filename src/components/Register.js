@@ -182,8 +182,13 @@ function Register() {
           fontWeight: "600",
         }}
       >
-        Register yourself as Wifi owner
+        Register as Wifi Owner
       </h2>
+
+      <p style={{ color: "#800000" }}>
+        ➡️ Enter your details to share your Wi-Fi and split the internet bill
+        with others in your area.
+      </p>
 
       <div className="section" style={{ marginBottom: "30px" }}>
         <h4 style={{ color: "#343a40", marginBottom: "10px" }}>Name</h4>
