@@ -188,7 +188,7 @@ function Register() {
       </h2>
 
       <p style={{ color: "#800000" }}>
-        ➡️ Enter your details to share your Wi-Fi and split the internet bill
+        ➡️ Enter the details to share your Wi-Fi and split the internet bill
         with others in your area.
       </p>
 
